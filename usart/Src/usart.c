@@ -102,7 +102,29 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 } 
 
 /* USER CODE BEGIN 1 */
+void usart_polling(void)
+{
+  volatile uint8_t rx[5];
+  volatile uint8_t status;
 
+  status = (HAL_StatusTypeDef)HAL_UART_Receive(&huart2, rx, 1, 10);
+  if (HAL_OK != status) {
+    switch (status) {
+    case HAL_ERROR:
+      status = 'A';
+      break;
+    case HAL_TIMEOUT:
+      status = 'B';
+      break;
+    case HAL_BUSY:
+      status = 'C';
+      break;
+    }
+    // HAL_UART_Transmit(&huart2, &status, sizeof(status), 10);
+  } else {
+    HAL_UART_Transmit(&huart2, rx, 1, 10);
+  }
+}
 /* USER CODE END 1 */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

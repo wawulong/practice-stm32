@@ -10,6 +10,8 @@ RTE/
 *.lnp
 *.sct
 *.lst
+*.scvd
+*.iex
 
 # Prerequisites
 *.d
